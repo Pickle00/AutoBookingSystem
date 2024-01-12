@@ -15,9 +15,7 @@ class _BookRideState extends State<BookRide> {
     return const Scaffold(
       body: Center(
         child: Column(
-          children: [
-            TextField("From"),
-          ],
+          children: [Text("This is book page")],
         ),
       ),
     );

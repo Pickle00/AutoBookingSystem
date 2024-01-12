@@ -1,12 +1,9 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 
 import 'package:auto_booking/bloc/landing_page_bloc.dart';
 import 'package:auto_booking/screens/book_ride.dart';
 import 'package:auto_booking/screens/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import "dart:convert" as convert;
 import 'package:auto_booking/screens/landing_page.dart';
 
@@ -20,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
@@ -50,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onItemPressed(int index) {
     setState(() {
       _selectedIndex = index;
-      print("INdex is {$index}");
+      print("Index is {$index}");
     });
   }
 
