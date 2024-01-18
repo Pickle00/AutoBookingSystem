@@ -29,8 +29,8 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GoogleMap(
+    return MaterialApp(
+      home: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: const CameraPosition(
           target: _center,
@@ -44,38 +44,6 @@ class _LandingPageState extends State<LandingPage> {
         },
       ),
 
-      // Center(
-      //     child: Stack(5
-      //   children: <Widget>[
-      //     FlutterMap(
-      //       options: MapOptions(
-      //         initialCenter: tomtomHQ,
-      //         initialZoom: 13.0,
-      //       ),
-      //       children: [
-      //         TileLayer(
-      //           urlTemplate: "https://api.tomtom.com/map/1/tile/basic/main/"
-      //               "{z}/{x}/{y}.png?key={apiKey}",
-      //           additionalOptions: {"apiKey": apiKey},
-      //         ),
-      //         MarkerLayer(
-      //           markers: [
-      //             Marker(
-      //               width: 40.0,
-      //               height: 40.0,
-      //               point: tomtomHQ,
-      //               child: Image.asset("assets/person.png"),
-      //             ),
-      //             Marker(
-      //               width: 40.0,
-      //               height: 40.0,
-      //               point: tomtomHQ,
-      //               child: Image.asset("assets/person.png"),
-      //             ),
-      //           ],
-      //           alignment: Alignment.center,
-      //         ),
-      //       ],
       //     ),
       //     // Container(
       //     //   padding: const EdgeInsets.all(20),

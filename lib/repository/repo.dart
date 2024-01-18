@@ -10,23 +10,24 @@ class Repo {
   // Repo._();
 // var uuid = Uuid();
 
-  Future<List<dynamic>> getSuggestions() async {
+  dynamic getSuggestions() async {
     // String input = 'Hetauda';
 
-    List<dynamic> _placelist = [];
-
+    var _placelist = [];
+    print(input);
     try {
       String baseURL =
           'https://maps.googleapis.com/maps/api/place/autocomplete/json';
       String request = '$baseURL?input=$input&key=$googleApiKey';
       var response = await http.get(Uri.parse(request));
       var data = json.decode(response.body);
-      print("datas");
-      print(data);
+      // print("datas");
+      // print(data);
 
       if (response.statusCode == 200) {
-        _placelist = json.decode(response.body)['predicitions'];
-        print(_placelist);
+        _placelist = data['predictions'];
+        // print("This is place list");
+        // print(_placelist);
       }
     } catch (e) {
       print('Failed to load predicitions');

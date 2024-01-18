@@ -1,3 +1,4 @@
+import 'package:auto_booking/repository/repo.dart';
 import 'package:flutter/material.dart';
 // import 'package:reactive_forms/reactive_forms.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -10,6 +11,9 @@ class BookRide extends StatefulWidget {
 }
 
 class _BookRideState extends State<BookRide> {
+  var _controller = TextEditingController();
+  List<dynamic> placelist = [];
+
   // final form = FormGroup({
   //   'from': FormControl<String>(value: ''),
   //   'to': FormControl<String>(value: '')
@@ -28,68 +32,85 @@ class _BookRideState extends State<BookRide> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(9.0),
-        child: FormBuilder(
-          key: _fbkey,
-          child: SizedBox(
-            width: 380,
-            child: Column(
-              children: [
-                FormBuilderTextField(
-                  name: From,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(width: 0.5),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    hintText: "From",
-                    hintStyle: TextStyle(),
-                    focusColor: Colors.white,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
+        child: SizedBox(
+          width: 380,
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 5,
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                FormBuilderTextField(
-                  name: To,
-                  decoration: InputDecoration(
-                    // ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(width: 0.5),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    hintText: "To",
-                    focusColor: Colors.white,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 0.5),
+                    borderRadius: BorderRadius.circular(15),
                   ),
+                  hintText: "From",
+                  hintStyle: TextStyle(),
+                  focusColor: Colors.white,
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                FormBuilderTextField(
-                  name: Message,
-                  decoration: InputDecoration(
-                    // ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 5,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Column(
+                children: [
+                  Align(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        // ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 5,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 0.5),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        hintText: "To",
+                        focusColor: Colors.white,
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                      ),
+                      onTap: () async {
+                        Repo repo = Repo(input: _controller.text);
+                        Future<List<dynamic>> place = repo.getSuggestions();
+                        print(place);
+                        placelist = place as List<dynamic>;
+                      },
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(width: 0.5),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    hintText: "Message",
-                    focusColor: Colors.white,
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
                   ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: placelist.length,
+                      itemBuilder: (context, index) {
+                        return SingleChildScrollView(
+                          child: Text(placelist[index]['description']),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextField(
+                // name: Message,
+                decoration: InputDecoration(
+                  // ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 5,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 0.5),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  hintText: "Message",
+                  focusColor: Colors.white,
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
